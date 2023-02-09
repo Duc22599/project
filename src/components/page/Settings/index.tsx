@@ -163,7 +163,7 @@ export function Settings() {
           sx={{ ml: "auto", mt: { xs: 2, md: 3 } }}
           variant="contained"
         >
-          Contained
+          Update Profile
         </Button>
       </Box>
     </Layout>

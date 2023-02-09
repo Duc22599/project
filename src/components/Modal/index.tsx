@@ -1,6 +1,7 @@
 import { Box, Modal } from "@mui/material";
 
 import { Outlet } from "react-router-dom";
+import { BoxModal } from "../CssMui";
 
 export const ModalDetail = ({ open, handleClose }: any) => {
   const style = {
@@ -8,7 +9,7 @@ export const ModalDetail = ({ open, handleClose }: any) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "auto",
+    width: 800,
     bgcolor: "background.paper",
     border: "2px solid grey",
     boxShadow: 24,
@@ -22,9 +23,9 @@ export const ModalDetail = ({ open, handleClose }: any) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <BoxModal sx={style}>
         <Outlet />
-      </Box>
+      </BoxModal>
     </Modal>
   );
 };

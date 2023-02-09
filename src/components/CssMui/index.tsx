@@ -31,3 +31,22 @@ export const BoxProFile = styled(Box)(({ theme }) => ({
     padding: "0 50px",
   },
 }));
+
+export const BoxModal = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "tranlate(-50%, -50%)",
+  backgroundColor: "background.paper",
+  border: "2px solid grey",
+  boxShadow: "24",
+  borderRadius: "10px",
+  p: 4,
+  [theme.breakpoints.up("xs")]: {
+    width: 350,
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: 950,
+  },
+}));

@@ -62,12 +62,9 @@ export const ArticlesPage = () => {
             aria-label="secondary tabs example"
           >
             {getUserToken && (
-              <Tab value={getUserToken ? "home" : "feed"} label="You Feed" />
+              <Tab value={getUserToken ? "home" : "feed"} label="Your Feed" />
             )}
-            <Tab
-              value={getUserToken ? "global" : "home"}
-              label="Article Global"
-            />
+            <Tab value={getUserToken ? "global" : "home"} label="Global Feed" />
             {type && <Tab value={type} label={`# ${type}`} />}
           </Tabs>
         </Box>

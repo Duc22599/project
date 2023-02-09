@@ -34,7 +34,7 @@ function Header2() {
         right: "0",
         left: "0",
         height: "50",
-        bgcolor: "#81d4fa",
+        bgcolor: "#647f90",
         display: { xs: "flex", md: "none" },
       }}
     >

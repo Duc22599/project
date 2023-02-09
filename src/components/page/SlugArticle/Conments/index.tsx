@@ -10,10 +10,13 @@ import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Typography from "@mui/joy/Typography";
 import { Avatar } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export function Comments({ data, userName, avatarUser }: any) {
   const [postComment, setPostComment] = useState("");
   const [getComment, setGetComment] = useState<any>([]);
+
+  const getUser = useSelector((state: any) => state.user.currentUser);
 
   const getComments = () => {
     instance
@@ -140,8 +143,12 @@ export function Comments({ data, userName, avatarUser }: any) {
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ mr: 1 }} src={avatarUser} aria-label="recipe" />
-                {userName}
+                <Avatar
+                  sx={{ mr: 1 }}
+                  src={getUser.image}
+                  aria-label="recipe"
+                />
+                {getUser.username}
               </Typography>
 
               <Button onClick={handlePost} sx={{ ml: "auto" }}>

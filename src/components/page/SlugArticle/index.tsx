@@ -176,7 +176,6 @@ export const SlugArticle = () => {
               padding: "5px",
               border: "2px solid #E4E4E4",
               borderRadius: "5px",
-              mb: 5,
             }}
           >
             # {tags}

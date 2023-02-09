@@ -44,7 +44,6 @@ export default function MyArticle({ userName }: any) {
       .get(`articles?author=${userName}&limit=${pageLimit}&offset=${offSet}`)
       .then((res: any) => {
         setOffset((pre: number) => pre + pageLimit);
-
         setMyArt(res.data.articles);
       });
   };
