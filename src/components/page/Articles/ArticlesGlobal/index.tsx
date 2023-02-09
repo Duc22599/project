@@ -13,17 +13,21 @@ export default function ArticlesGlobal() {
   const [hasMore, setHasMore] = useState(true);
   const [offSet, setOffset] = useState(0);
 
+  const offSett = useRef(0);
+
   const getArt = () => {
-    setOffset((pre: number) => pre + PAGE_SIZE);
+    offSett.current += PAGE_SIZE;
 
-    instance.get(`articles?limit=${PAGE_SIZE}&offset=${offSet}`).then((res) => {
-      setHasMore(offSet < res.data?.articlesCount);
+    instance
+      .get(`articles?limit=${PAGE_SIZE}&offset=${offSett.current}`)
+      .then((res) => {
+        setHasMore(offSett.current < res.data?.articlesCount);
 
-      setGlobals((prevArticles: any) => [
-        ...prevArticles,
-        ...res.data.articles,
-      ]);
-    });
+        setGlobals((prevArticles: any) => [
+          ...prevArticles,
+          ...res.data.articles,
+        ]);
+      });
   };
 
   // const navigate = useNavigate();
@@ -31,7 +35,7 @@ export default function ArticlesGlobal() {
     instance
       .get(`articles?limit=${PAGE_SIZE}&offset=${offSet}`)
       .then((res: any) => {
-        setOffset((pre: number) => pre + PAGE_SIZE);
+        // setOffset((pre: number) => pre + PAGE_SIZE);
 
         setGlobals(res.data.articles);
       });
@@ -71,7 +75,12 @@ export default function ArticlesGlobal() {
         scrollableTarget="scrollableDiv"
       >
         {globals.map((item: any, index: number) => (
-          <PostArt article={item} key={index} setFavourite={setFavourite} />
+          <PostArt
+            callApi={callApi}
+            article={item}
+            key={index}
+            setFavourite={setFavourite}
+          />
         ))}
       </InfiniteScroll>
 

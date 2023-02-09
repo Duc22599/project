@@ -2,8 +2,15 @@ import { Box, Modal } from "@mui/material";
 
 import { Outlet } from "react-router-dom";
 import { BoxModal } from "../CssMui";
+import { SlugArticle } from "../page/SlugArticle";
 
-export const ModalDetail = ({ open, handleClose }: any) => {
+export const ModalDetail = ({
+  open,
+  handleClose,
+  setOpen,
+  article,
+  callApi,
+}: any) => {
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -24,7 +31,7 @@ export const ModalDetail = ({ open, handleClose }: any) => {
       aria-describedby="modal-modal-description"
     >
       <BoxModal sx={style}>
-        <Outlet />
+        <SlugArticle setOpen={setOpen} callApi={callApi} article={article} />
       </BoxModal>
     </Modal>
   );

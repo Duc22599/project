@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { instance } from "../../../../GetApi";
 import { Loading } from "../../../CssMui";
@@ -12,13 +12,17 @@ export const MyFavorited = ({ username }: any) => {
   const [hasMore, setHasMore] = useState(true);
   const [offSet, setOffset] = useState(0);
 
-  const getMyFavoried = () => {
-    instance
-      .get(`articles?favorited=${username}&limit=${limitPage}&offset=${offSet}`)
-      .then((res: any) => {
-        setOffset((pre: number) => pre + limitPage);
+  const offSets = useRef(0);
 
-        setHasMore(offSet < res.data?.articlesCount);
+  const getMyFavoried = () => {
+    offSets.current += limitPage;
+
+    instance
+      .get(
+        `articles?favorited=${username}&limit=${limitPage}&offset=${offSets.current}`
+      )
+      .then((res: any) => {
+        setHasMore(offSets.current < res.data?.articlesCount);
         setMyFavorited((pre: any) => [...pre, ...res.data.articles]);
       });
   };

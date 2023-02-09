@@ -8,9 +8,7 @@ import {
   IconButton,
   Typography,
   Button,
-  CircularProgress,
   CardActionArea,
-  Modal,
   Box,
   Link,
 } from "@mui/material";
@@ -22,7 +20,7 @@ import { useSelector } from "react-redux";
 import { instance } from "../../GetApi";
 import { ModalDetail } from "../Modal";
 
-export default function PostArt({ setFavourite, article }: any) {
+export default function PostArt({ setFavourite, article, callApi }: any) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -130,7 +128,13 @@ export default function PostArt({ setFavourite, article }: any) {
         </Box>
       </Modal> */}
 
-      <ModalDetail open={open} handleClose={handleClose} />
+      <ModalDetail
+        open={open}
+        callApi={callApi}
+        article={article}
+        setOpen={setOpen}
+        handleClose={handleClose}
+      />
     </Box>
   );
 }

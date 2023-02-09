@@ -84,7 +84,7 @@ export const NewArt2 = ({ hanleClose }: any) => {
         },
       })
       .then((res) => {
-        navigate("/");
+        navigate(0);
         // window.location.reload();
         hanleClose(false);
       });

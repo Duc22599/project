@@ -1,5 +1,5 @@
 import PostArt from "../../../PostArt";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { instance } from "../../../../GetApi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CircularProgress } from "@mui/material";
@@ -12,12 +12,14 @@ export default function YouFeed() {
 
   const limitPage = 10;
 
+  const offSets = useRef(0);
+
   const callFolow = () => {
+    offSets.current += limitPage;
     instance
-      .get(`articles/feed?limit=${limitPage}&offset=${offSet}`)
+      .get(`articles/feed?limit=${limitPage}&offset=${offSets.current}`)
       .then((res: any) => {
-        setHasMore(offSet < res.data.articlesCount);
-        setOffset((pre: number) => pre + limitPage);
+        setHasMore(offSets.current < res.data.articlesCount);
 
         setFollowing((pre: any) => [...pre, ...res.data.articles]);
       });
@@ -27,7 +29,7 @@ export default function YouFeed() {
     instance
       .get(`articles/feed?limit=${limitPage}&offset=${offSet}`)
       .then((res: any) => {
-        setOffset((pre: number) => pre + limitPage);
+        // setOffset((pre: number) => pre + limitPage);
 
         setFollowing(res.data.articles);
       });

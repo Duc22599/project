@@ -1,20 +1,9 @@
-import AspectRatio from "@mui/joy/AspectRatio";
-import Avatar from "@mui/joy/Avatar";
-import Box from "@mui/joy/Box";
-import Card from "@mui/joy/Card";
-import IconButton from "@mui/joy/IconButton";
-import Typography from "@mui/joy/Typography";
-import Link from "@mui/joy/Link";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { instance } from "../../../../GetApi";
-import moment from "moment";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Outlet, useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { Loading } from "../../../CssMui";
 import PostProfile from "../../../PostArt/PostProfile";
-import PostArt from "../../../PostArt";
 
 const pageLimit = 10;
 
@@ -23,15 +12,16 @@ export default function MyArticle({ userName }: any) {
   const [hasMore, setHasMore] = useState(true);
   const [offSet, setOffset] = useState(0);
 
-  const navigate = useNavigate();
+  const offSets = useRef(0);
 
   const callMyArt = () => {
+    offSets.current += pageLimit;
     instance
-      .get(`articles?author=${userName}&limit=${pageLimit}&offset=${offSet}`)
+      .get(
+        `articles?author=${userName}&limit=${pageLimit}&offset=${offSets.current}`
+      )
       .then((response: any) => {
-        setOffset((pre: number) => pre + pageLimit);
-
-        setHasMore(offSet < response.data?.articlesCount);
+        setHasMore(offSets.current < response.data?.articlesCount);
         setMyArt((prevArticles: any) => [
           ...prevArticles,
           ...response.data.articles,
@@ -93,10 +83,6 @@ export default function MyArticle({ userName }: any) {
                     setFavourite={setFavourite}
                   />
                 ))}
-
-                {/* <>
-                  <Outlet />
-                </> */}
               </InfiniteScroll>
             </>
           ) : (

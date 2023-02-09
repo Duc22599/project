@@ -6,11 +6,11 @@ import { Box } from "@mui/joy";
 const Layout = ({ children }: any) => {
   return (
     <Grid container>
-      <Grid item xs={12} md={2}>
+      <Grid item xs={12} md={3} lg={2}>
         <BasicList />
       </Grid>
 
-      <Grid item xs={12} md={10}>
+      <Grid item xs={12} md={9} lg={10}>
         <Box sx={{ mb: 5 }}>{children}</Box>
 
         <Header2 />

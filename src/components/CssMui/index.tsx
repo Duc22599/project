@@ -47,6 +47,6 @@ export const BoxModal = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    width: 950,
+    width: 750,
   },
 }));

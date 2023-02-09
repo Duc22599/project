@@ -18,8 +18,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { Divider } from "@mui/material";
+import Layout from "../../Layout";
 
-export const SlugArticle = () => {
+export const SlugArticle = ({ setOpen, callApi }: any) => {
   const [slugs, setSlugs] = useState<any>(null);
 
   const navigate = useNavigate();
@@ -28,14 +29,14 @@ export const SlugArticle = () => {
 
   const getUser = useSelector((state: any) => state.user.currentUser.username);
 
-  const callApi = () => {
+  const slugDetail = () => {
     instance.get(`articles/${params.slug}`).then((res) => {
       setSlugs(res.data.article);
     });
   };
 
   useEffect(() => {
-    callApi();
+    slugDetail();
   }, [params]);
 
   const getUserToken = sessionStorage.getItem("userToken");
@@ -48,13 +49,13 @@ export const SlugArticle = () => {
     }
     instance
       .post(`profiles/${slugs?.author.username}/follow`)
-      .then((res) => callApi());
+      .then((res) => slugDetail());
   };
 
   const unFollower = () => {
     instance
       .delete(`profiles/${slugs?.author.username}/follow`)
-      .then((res) => callApi());
+      .then((res) => slugDetail());
   };
 
   //Favorite
@@ -64,18 +65,24 @@ export const SlugArticle = () => {
       navigate("/login");
       return;
     }
-    instance.post(`articles/${slugs?.slug}/favorite`).then((res) => callApi());
+    instance
+      .post(`articles/${slugs?.slug}/favorite`)
+      .then((res) => slugDetail());
   };
 
   const unFavorite = () => {
     instance
       .delete(`articles/${slugs?.slug}/favorite`)
-      .then((res) => callApi());
+      .then((res) => slugDetail());
   };
 
   // Delete My Article
   const deleteArt = () => {
-    instance.delete(`articles/${slugs?.slug}`).then(() => navigate("/"));
+    instance.delete(`articles/${slugs?.slug}`).then(() => {
+      navigate(-1);
+      setOpen(false);
+      callApi();
+    });
   };
 
   return (
