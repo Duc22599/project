@@ -51,7 +51,9 @@ export const ArticlesPage = () => {
 
   return (
     <Layout>
-      <Box sx={{ width: { xs: "100%", md: "95%" }, ml: { xs: 0, md: 2 } }}>
+      <Box
+        sx={{ width: { xs: "100%", md: "95%" }, ml: { xs: 0, md: 1, lg: 6 } }}
+      >
         <Box sx={{ width: "100%" }}>
           <Tabs
             sx={{ borderBottom: 1, borderColor: "divider" }}
