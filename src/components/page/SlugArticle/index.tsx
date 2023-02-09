@@ -18,7 +18,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { Divider } from "@mui/material";
-import Layout from "../../Layout";
 
 export const SlugArticle = ({ setOpen, callApi }: any) => {
   const [slugs, setSlugs] = useState<any>(null);
@@ -47,9 +46,9 @@ export const SlugArticle = ({ setOpen, callApi }: any) => {
       navigate("/login");
       return;
     }
-    instance
-      .post(`profiles/${slugs?.author.username}/follow`)
-      .then((res) => slugDetail());
+    instance.post(`profiles/${slugs?.author.username}/follow`).then((res) => {
+      slugDetail();
+    });
   };
 
   const unFollower = () => {
@@ -65,15 +64,17 @@ export const SlugArticle = ({ setOpen, callApi }: any) => {
       navigate("/login");
       return;
     }
-    instance
-      .post(`articles/${slugs?.slug}/favorite`)
-      .then((res) => slugDetail());
+    instance.post(`articles/${slugs?.slug}/favorite`).then((res) => {
+      slugDetail();
+      callApi();
+    });
   };
 
   const unFavorite = () => {
-    instance
-      .delete(`articles/${slugs?.slug}/favorite`)
-      .then((res) => slugDetail());
+    instance.delete(`articles/${slugs?.slug}/favorite`).then((res) => {
+      slugDetail();
+      callApi();
+    });
   };
 
   // Delete My Article
